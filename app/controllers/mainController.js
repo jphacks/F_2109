@@ -20,6 +20,18 @@ const mainController = {
         
         res.send('test screenshotttt.');
 
+    },
+
+    async test_regcli(req, res){
+        console.log("test");
+        const { imgDiff } = require("img-diff-js");
+
+        imgDiff({
+            actualFilename: "public/images/correct/test_reg_left.jpg",
+            expectedFilename: "public/images/temp/test_reg_right.jpg",
+            diffFilename: "public/images/diff/diff.png",
+        }).then(result => console.log(result));
+        res.send('test reg-cli.');
     }
 }
 
