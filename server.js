@@ -15,7 +15,7 @@ app.get("/api", (req, res) => {
 
 app.get("/test", mainController.index);
 app.get("/test/params", mainController.test_params);
-
+app.get("/test/test_screenshot", mainController.test_screenshot);
 
 
 

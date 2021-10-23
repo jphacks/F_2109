@@ -1,1 +1,8 @@
-{}
+{
+    "env": {
+        "ss_wait_msec": 1000,
+        "ss_view_width": 1340,
+        "ss_view_height": 1000,
+        "ss_capture": "fullPage"
+      }
+}
