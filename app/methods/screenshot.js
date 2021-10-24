@@ -2,8 +2,9 @@ exports.takeScreenshot = async function (url, image_path){
     const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    page.setViewport({width:1200, height: 800})
+    page.setViewport({width:1200, height: await page.evaluate(() => document.body.clientHeight)})
     await page.goto(url);
-    await page.screenshot({path:image_path + 'screenshot.png', fullPage:true});
+    await page.waitForTimeout(5000);
+    await page.screenshot({path:image_path, fullPage:true});
     await browser.close();
 }
