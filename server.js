@@ -8,7 +8,7 @@ const mainController = require(dir_path + "/app/controllers/mainController");
 
 app.use(express.static('code'));
 app.use(express.json());
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.send('test express.');
@@ -24,15 +24,12 @@ app.get("/test/params", mainController.test_params);
 app.get("/test/test_screenshot", mainController.test_screenshot);
 app.get('/test/test_regcli', mainController.test_regcli);
 
-app.get("/api/upload", mainController.uploadSubmit);
+// app.get("/api/upload", mainController.uploadSubmit);
 
 //submit from frontend
-app.post("/api/upload", mainController.uploadSubmit);
-app.post("/api/imgScore", mainController.getImgScore);
-
-app.post("/api/close", mainController.closeSubmit);
-
-
+app.post("/v0.1.0/ui:upload", mainController.uploadSubmit);
+app.post("/v0.1.0/ui:imgScore", mainController.getImgScore);
+app.post("/v0.1.0/ui:close", mainController.closeSubmit);
 
 app.listen(port, () => {
     console.log(`listening on *:${port}`);
