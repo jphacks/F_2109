@@ -25,11 +25,12 @@ app.get("/test/test_screenshot", mainController.test_screenshot);
 app.get('/test/test_regcli', mainController.test_regcli);
 
 app.get("/api/upload", mainController.uploadSubmit);
+
 //submit from frontend
 app.post("/api/upload", mainController.uploadSubmit);
 app.post("/api/imgScore", mainController.getImgScore);
 
-
+app.post("/api/close", mainController.closeSubmit);
 
 
 

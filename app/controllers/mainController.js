@@ -1,5 +1,3 @@
-const { exit } = require('process');
-
 const mainController = {
     async index(req, res){
         res.send('test controller');
@@ -14,7 +12,7 @@ const mainController = {
     async test_screenshot(req, res){
         
         
-        const url = "https://liginc.co.jp/492752";
+        const url = "http://localhost:3000/testuser_p1/root/";
         const image_path = process.cwd() + "../../backend/public/images/temp/screenshot.png";
         
         const screenshot = require(process.cwd() + '/app/methods/screenshot');
@@ -48,7 +46,7 @@ const mainController = {
 
         console.log(source_code);
         // setup
-        const domain = "localhost:3000/";
+        const domain = "http://localhost:3000/";
         const user = "testuser";
         const problem = "p1";
         const id = user + "_" + problem;
@@ -101,9 +99,6 @@ const mainController = {
 
         //remove temp, diff files, uploaded dir
         try {
-          if(fs.existsSync("code/" + id)){
-            fs.rmdirSync("code/" + id, { recursive:true });
-          }
           fs.unlinkSync("public/images/temp/" + id + ".png");
           fs.unlinkSync("public/images/diff/" + id + ".png");
         } catch (error) {
@@ -113,6 +108,18 @@ const mainController = {
         res.json({
             "imgScore": score
         });
+    },
+    async closeSubmit(req, res){
+        const id = req.body.id;
+        const fs = require('fs');
+        try {
+            if(fs.existsSync("code/" + id)){
+              fs.rmdirSync("code/" + id, { recursive:true });
+            }
+          } catch (error) {
+            throw error;
+          }
+        res.json({ "message": "closed." });
     }
 }
 
