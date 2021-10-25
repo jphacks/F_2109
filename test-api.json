@@ -1,0 +1,22 @@
+{
+    "source_code":{
+        "dirName": "/",
+        "file": [{
+            "fileName": "index.html",
+            "code": "<link rel='stylesheet' href='css/css.css'><h1>test api!!!!!</h1>"
+        }],
+        "dir": [{
+            "dirName": "js",
+            "file": [{
+                "fileName": "js.html",
+                "code": "<h1>test js!!!!</h1>"
+            }]
+        },{
+            "dirName": "css",
+            "file": [{
+                "fileName": "css.css",
+                "code": "h1{ color:red }"
+            }]
+        }]
+    }
+}
