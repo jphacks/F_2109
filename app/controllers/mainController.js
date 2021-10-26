@@ -14,9 +14,12 @@ const mainController = {
     async test_screenshot(req, res){
         
         
-        const url = "https://qiita.com/";
-        const image_path = process.cwd() + "/public/images/temp/screenshot.png";
-        console.log(image_path);
+        let url = "https://qiita.com/";
+        if(req.query.url){
+            url = req.query.url;
+        }
+        const image_path = process.cwd() + "/screenshot.png";
+        console.log(url);
         const screenshot = require(process.cwd() + '/app/methods/screenshot');
         await screenshot.takeScreenshot(url, image_path);
         
