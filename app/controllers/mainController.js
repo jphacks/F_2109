@@ -1,3 +1,5 @@
+const { exit } = require('process');
+
 const mainController = {
     async index(req, res){
         res.send('test controller');
@@ -12,9 +14,9 @@ const mainController = {
     async test_screenshot(req, res){
         
         
-        const url = "http://localhost:3000/testuser_p1/root/";
-        const image_path = process.cwd() + "../../backend/public/images/temp/screenshot.png";
-        
+        const url = "https://qiita.com/";
+        const image_path = process.cwd() + "/public/images/temp/screenshot.png";
+        console.log(image_path);
         const screenshot = require(process.cwd() + '/app/methods/screenshot');
         await screenshot.takeScreenshot(url, image_path);
         
@@ -43,10 +45,10 @@ const mainController = {
     async uploadSubmit(req, res){
 
         const source_code = req.body.source_code;
-
         console.log(source_code);
         // setup
-        const domain = "http://localhost:3000/";
+        //const domain = "http://localhost:3000/";
+        const domain = "http://54.95.10.72:3000/";
         const user = "testuser";
         const problem = "p1";
         const id = user + "_" + problem;
@@ -87,7 +89,7 @@ const mainController = {
             res.json({ "imgScore": -1 });
         }
         //screenshot
-        const temp_image_path = process.cwd() + "../../backend/public/images/temp/" + id + ".png";
+        const temp_image_path = process.cwd() + "/public/images/temp/" + id + ".png";
         const screenshot = require(process.cwd() + '/app/methods/screenshot');
         await screenshot.takeScreenshot(url, temp_image_path);
 
