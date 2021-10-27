@@ -2,13 +2,37 @@ const { exit } = require('process');
 
 const mainController = {
     async index(req, res){
-        res.send('test controller');
+        res.send('test controller!');
     },
 
     async test_params(req, res){
         //test/params?a=2109
         const a = req.query.a;
         res.send("testparams:" + a);
+    },
+    async setup_mysql(req, res){
+        const mysql = require('mysql');
+        const host = process.env.DB_HOST;
+        const user = process.env.DB_USER;
+        const pass = process.env.DB_PASS;
+        const db = process.env.DB_NAME;
+
+        const con = mysql.createConnection({
+            host: host,
+            user: user,
+            password: pass,
+            database: db
+        });
+
+        con.connect(function(err){
+            if(err) throw err;
+            console.log('connected.');
+            // con.query('CREATE DATABASE fcoder', function (err, result){
+            //     if(err) throw err;
+            //     console.log("database created.");
+            // });
+        });
+        res.send("test mysql");
     },
 
     async test_screenshot(req, res){
@@ -46,7 +70,7 @@ const mainController = {
     },
 
     async uploadSubmit(req, res){
-
+        res.set({ 'Access-Control-Allow-Origin': '*' });
         const source_code = req.body.source_code;
         console.log(source_code);
         // setup
@@ -79,6 +103,7 @@ const mainController = {
     },
 
     async getImgScore(req, res){
+        res.set({ 'Access-Control-Allow-Origin': '*' });
         const url = req.body.url;
         console.log(url);
 
@@ -115,6 +140,7 @@ const mainController = {
         });
     },
     async closeSubmit(req, res){
+        res.set({ 'Access-Control-Allow-Origin': '*' });
         const id = req.body.id;
         const fs = require('fs');
         try {

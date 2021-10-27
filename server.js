@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 const dir_path = process.cwd();
 
 const mainController = require(dir_path + "/app/controllers/mainController");
+require('dotenv').config();
 
 app.use(express.static('code'));
 app.use(express.json());
@@ -23,6 +24,8 @@ app.get("/test", mainController.index);
 app.get("/test/params", mainController.test_params);
 app.get("/test/test_screenshot", mainController.test_screenshot);
 app.get('/test/test_regcli', mainController.test_regcli);
+
+app.get("/setup_mysql", mainController.setup_mysql);
 
 //app.get("/api/upload", mainController.uploadSubmit);
 
