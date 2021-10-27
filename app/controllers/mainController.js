@@ -31,8 +31,47 @@ const mainController = {
             //     if(err) throw err;
             //     console.log("database created.");
             // });
+            // let sql = "CREATE TABLE problem (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, title VARCHAR(255) NOT NULL, discription TEXT, image VARCHAR(255) NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)";
+            // con.query(sql, function (err, result){
+            //     if (err) throw err;
+            //     console.log("table created.");
+            // });
+            // let sql = "INSERT INTO problem(title, discription, image) VALUES('TestProblem1', 'テスト。まごうことなき。テスト。test.aaa', 'p1')";
+            // con.query(sql, function(err, result, fields){
+            //     if(err) throw err;
+            //     console.log(result);
+            // });
+            let sql = "select * from problem";
+            con.query(sql, function(err, result){
+                if(err) throw err;
+                console.log(result);
+            })
         });
         res.send("test mysql");
+    },
+    async setup_sqlite(req, res){
+        const sqlite = require('sqlite3').verbose();                                          
+        const db = new sqlite.Database('db/fcoder.sqlite');
+        db.serialize(function() {
+
+            // db.run('CREATE TABLE IF NOT EXISTS problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, discription TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
+           
+            // const stmt = db.prepare("INSERT INTO problem(title, discription, image) VALUES(?, ?, ?)");
+            // stmt.run(['TestProblem2', 'discription', 'p2']);
+            // stmt.run(['TestProblem3', 'テスト。aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'p3']);
+            // stmt.run(['TestProblem4', 'テスト。44444444まごうことなき。テスト。test.aaa', 'p4']);
+            // stmt.run(['TestProblem5', 'テスト。まごうこ55555555555となき。テスト。test.aaa', 'p5']);
+            // stmt.finalize();
+
+            db.each("SELECT * FROM problem", function(err, row) {
+                 console.log(row);
+
+              });
+          
+           });
+
+          res.send("test");
+          db.close();
     },
 
     async test_screenshot(req, res){

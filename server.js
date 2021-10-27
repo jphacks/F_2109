@@ -27,6 +27,7 @@ app.get('/test/test_regcli', mainController.test_regcli);
 
 app.get("/setup_mysql", mainController.setup_mysql);
 
+app.get('/setup_sqlite', mainController.setup_sqlite);
 //app.get("/api/upload", mainController.uploadSubmit);
 
 //submit from frontend
