@@ -52,26 +52,38 @@ const mainController = {
     async setup_sqlite(req, res){
         const sqlite = require('sqlite3').verbose();                                          
         const db = new sqlite.Database('db/fcoder.sqlite');
-        db.serialize(function() {
+        await db.serialize(async function() {
 
             // db.run('CREATE TABLE IF NOT EXISTS problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, discription TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
            
-            // const stmt = db.prepare("INSERT INTO problem(title, discription, image) VALUES(?, ?, ?)");
-            // stmt.run(['TestProblem2', 'discription', 'p2']);
-            // stmt.run(['TestProblem3', 'テスト。aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'p3']);
-            // stmt.run(['TestProblem4', 'テスト。44444444まごうことなき。テスト。test.aaa', 'p4']);
-            // stmt.run(['TestProblem5', 'テスト。まごうこ55555555555となき。テスト。test.aaa', 'p5']);
-            // stmt.finalize();
-
-            db.each("SELECT * FROM problem", function(err, row) {
+            const stmt = db.prepare("INSERT INTO problem(title, discription, image) VALUES(?, ?, ?)");
+            stmt.run(['スタイリッシュ', 'discription', 'p1']);
+            stmt.run(['シック', 'discription', 'p2']);
+            stmt.run(['ギャラリー', 'テスト。aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'p3']);
+            stmt.run(['レスポンシブ/シンプル', 'テスト。44444444まごうことなき。テスト。test.aaa', 'p4']);
+            stmt.run(['レスポンシブ/ナチュラル', '', 'p5']);
+            stmt.run(['レスポンシブ/IT', '', 'p6']);
+            stmt.run(['レスポンシブ/web', '', 'p7']);
+            stmt.run(['レスポンシブ/キッチン', '', 'p8']);
+            stmt.run(['レスポンシブ/シンプル', '', 'p9']);
+            stmt.run(['レスポンシブ/コーヒー', '', 'p10']);
+            stmt.finalize();
+            
+            await db.all("SELECT * FROM problem",async function(err, row) {
                  console.log(row);
-
+                 res.send(row);
               });
-          
+              //res.send("test");
            });
-
-          res.send("test");
+           
           db.close();
+    },
+    async test_sqlite(req, res){
+        const crud = require(process.cwd() + '/app/methods/get_problem');
+        sql = "SELECT * FROM problem where id = 14";
+        const row = await crud.getProblem(sql);
+        // console.log(row);
+        res.send(row[0].title);
     },
 
     async test_screenshot(req, res){
