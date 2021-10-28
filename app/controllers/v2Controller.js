@@ -1,14 +1,44 @@
 const { exit } = require('process');
 
 const v2Controller = {
+  async setup_sqlite(req, res){
+    const sqlite = require('sqlite3').verbose();                                          
+    const db = new sqlite.Database('db/fcoder.sqlite');
+    await db.serialize(async function() {
+
+        // db.run('CREATE TABLE IF NOT EXISTS problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
+        //db.run('CREATE TABLE problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
+      
+        const stmt = db.prepare("INSERT INTO problem(title, description, image) VALUES(?, ?, ?)");
+        stmt.run(['スタイリッシュ', 'discription', 'p1']);
+        stmt.run(['シック', 'discription', 'p2']);
+        stmt.run(['ファッション', 'テスト。aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'p3']);
+        stmt.run(['シンプル', 'テスト。44444444まごうことなき。テスト。test.aaa', 'p4']);
+        stmt.run(['フラワー', '', 'p5']);
+        stmt.run(['IT', '', 'p6']);
+        stmt.run(['web', '', 'p7']);
+        stmt.run(['キッチン', '', 'p8']);
+        stmt.run(['ナチュラル', '', 'p9']);
+        stmt.run(['コーヒー', '', 'p10']);
+        stmt.finalize();
+        
+        await db.all("SELECT * FROM problem",async function(err, row) {
+             console.log(row);
+             res.send(row);
+          });
+          //res.send("test");
+       });
+       
+      db.close();
+},
     async uploadSubmit(req, res){
         res.set({ 'Access-Control-Allow-Origin': '*' });
-        const source_code = req.body.source_code;
-        const user = req.body.user_id;
-        const problem = req.body.problem_image_name;
+        const sourceCode = req.body.sourceCode;
+        const user = req.body.userId;
+        const problem = req.body.problemImageName;
         const id = user + "_" + problem;
 
-        console.log(source_code);
+        console.log(sourceCode);
         // setup
         //const domain = "http://localhost:3000/";
         const domain = "http://54.95.10.72:3000/";
@@ -23,13 +53,13 @@ const v2Controller = {
           }
         fs.mkdirSync(code_path, { recursive:true }); // create root dir
 
-        if('file' in source_code){
+        if('file' in sourceCode){
             const setFile = require(process.cwd() + "/app/methods/code_deploy/set_file");
-            await setFile.setFile(source_code.file, code_path); //http://localhost:3000/testuser_p1/root/index.html
+            await setFile.setFile(sourceCode.file, code_path); //http://localhost:3000/testuser_p1/root/index.html
         }
-        if('dir' in source_code){
+        if('dir' in sourceCode){
             const setDir = require(process.cwd() + "/app/methods/code_deploy/set_dir");
-            await setDir.setDir(source_code.dir, code_path);
+            await setDir.setDir(sourceCode.dir, code_path);
         }
         res.json({
             "url": url
@@ -41,8 +71,8 @@ const v2Controller = {
         const url = req.body.url;
         console.log(url);
 
-        const problem = req.body.problem_image_name;
-        const user = req.body.user_id;
+        const problem = req.body.problemImageName;
+        const user = req.body.userId;
         const id = user + "_" + problem; // p1_testuser
 
         // check existing uploaded dir, if false, imgScore = -1
@@ -76,8 +106,8 @@ const v2Controller = {
     async closeSubmit(req, res){
         res.set({ 'Access-Control-Allow-Origin': '*' });
 
-        const problem = req.body.problem_image_name;
-        const user = req.body.user_id;
+        const problem = req.body.problemImageName;
+        const user = req.body.userId;
         const id = user + "_" + problem;
         const fs = require('fs');
         try {
