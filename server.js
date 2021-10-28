@@ -30,7 +30,6 @@ app.get('/test/test_sqlite', mainController.test_sqlite);
 
 app.get("/setup_mysql", mainController.setup_mysql);
 
-app.get('/setup_sqlite', mainController.setup_sqlite);
 //app.get("/api/upload", mainController.uploadSubmit);
 
 //submit from frontend
@@ -39,6 +38,8 @@ app.post("/v0.1.0/imgScore", mainController.getImgScore);
 app.post("/v0.1.0/close", mainController.closeSubmit);
 
 // v0.2.0
+app.get('/setup_sqlite', v2Controller.setup_sqlite);
+
 app.post("/v0.2.0/upload", v2Controller.uploadSubmit);
 app.post("/v0.2.0/imgScore", v2Controller.getImgScore);
 app.post("/v0.2.0/close", v2Controller.closeSubmit);
