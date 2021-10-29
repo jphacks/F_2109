@@ -41,7 +41,7 @@ const v2Controller = {
         console.log(sourceCode);
         // setup
         //const domain = "http://localhost:3000/";
-        const domain = "http://54.95.10.72:3000/";
+        const domain = "https://frontcoder.net/";
         
         const code_path = process.cwd() + "/code/" + id + "/root";
 
@@ -122,7 +122,7 @@ const v2Controller = {
 
         res.json({
             "imgScore": score,
-            "report": "http://54.95.10.72:3000/reports/" + id + ".html"
+            "report": "https://frontcoder.net/reports/" + id + ".html"
         });
     },
     async closeSubmit(req, res){
