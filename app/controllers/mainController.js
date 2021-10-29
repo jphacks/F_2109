@@ -80,10 +80,10 @@ const mainController = {
     },
     async test_sqlite(req, res){
         const crud = require(process.cwd() + '/app/methods/get_problem');
-        sql = "SELECT * FROM problem where id = 14";
+        sql = "SELECT * FROM problem";
         const row = await crud.getProblem(sql);
         // console.log(row);
-        res.send(row[0].title);
+        res.send(row);
     },
 
     async test_screenshot(req, res){

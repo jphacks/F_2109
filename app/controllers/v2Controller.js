@@ -7,19 +7,19 @@ const v2Controller = {
     await db.serialize(async function() {
 
         // db.run('CREATE TABLE IF NOT EXISTS problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
-        //db.run('CREATE TABLE problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
+        db.run('CREATE TABLE problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
       
         const stmt = db.prepare("INSERT INTO problem(title, description, image) VALUES(?, ?, ?)");
-        stmt.run(['スタイリッシュ', 'discription', 'p1']);
-        stmt.run(['シック', 'discription', 'p2']);
-        stmt.run(['ファッション', 'テスト。aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'p3']);
-        stmt.run(['シンプル', 'テスト。44444444まごうことなき。テスト。test.aaa', 'p4']);
-        stmt.run(['フラワー', '', 'p5']);
-        stmt.run(['IT', '', 'p6']);
-        stmt.run(['web', '', 'p7']);
-        stmt.run(['キッチン', '', 'p8']);
-        stmt.run(['ナチュラル', '', 'p9']);
-        stmt.run(['コーヒー', '', 'p10']);
+        stmt.run(['スタイリッシュ', 'スタイリッシュな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p1']);
+        stmt.run(['シック', 'シックな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p2']);
+        stmt.run(['ファッション', 'ファッショナブルな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p3']);
+        stmt.run(['シンプル', 'シンプルな企業紹介サイトです。', 'p4']);
+        stmt.run(['フラワー', '花をモチーフにした企業紹介サイトです。', 'p5']);
+        stmt.run(['IT', 'IT業界向けの企業紹介サイトです。', 'p6']);
+        stmt.run(['web', 'web業界向けの企業紹介サイトです。', 'p7']);
+        stmt.run(['キッチン', 'キッチンをモチーフにした施工業者向け企業紹介サイトです。', 'p8']);
+        stmt.run(['ナチュラル', '自然をモチーフにした企業紹介サイトです。', 'p9']);
+        stmt.run(['コーヒー', 'カフェ向けの企業紹介サイトです。', 'p10']);
         stmt.finalize();
         
         await db.all("SELECT * FROM problem",async function(err, row) {
@@ -80,27 +80,49 @@ const v2Controller = {
         if(fs.existsSync("code/" + id) == false){
             res.json({ "imgScore": -1 });
         }
+
+        //create dir /public/images/temp/[[user_id]]/[[problem]].png
+        const temp_path = process.cwd() + "/public/images/temp/" + user;
+        const diff_path = process.cwd() + "/public/images/diff/" + user;
+        const correct_path = process.cwd() + "/public/images/correct/" + problem;
+        if(fs.existsSync(temp_path)){
+          fs.rmdirSync(temp_path, { recursive:true });
+          fs.rmdirSync(diff_path, { recursive:true });
+        }
+        fs.mkdirSync(temp_path, { recursive:true });
+        fs.mkdirSync(diff_path, { recursive:true });
+
         //screenshot
-        const temp_image_path = process.cwd() + "/public/images/temp/" + id + ".png";
+        const temp_image_path = temp_path + "/" + problem + ".png";
         const screenshot = require(process.cwd() + '/app/methods/screenshot');
         await screenshot.takeScreenshot(url, temp_image_path);
 
         //pixel check
-        const correctFilename = "public/images/correct/" + problem + ".png";
-        const tempFilename = "public/images/temp/" + id + ".png";
-        const diffFilename = "public/images/diff/" + id + ".png";
+        const correctFilename = correct_path + "/" + problem + ".png";
+        const tempFilename = temp_path + "/" + problem + ".png";
+        const diffFilename = diff_path + "/" + user + ".png";
         const score = await require(process.cwd() + "/app/methods/check_pixel").checkPixel(correctFilename,tempFilename,diffFilename);
 
+        //reg-cli
+        const report_path = process.cwd() + "/public/reports/" + id + ".html";
+        const cmd = '"./node_modules/.bin/reg-cli" ' + correct_path + ' ' + temp_path + ' ' + diff_path + ' -R ' + report_path;
+
+        child = require('child_process').exec(cmd, (err, stdout, stderr) => {
+            //console.log('err:', err);
+            console.log('stdout:', stdout);
+        })
+
         //remove temp, diff files
-        try {
-          fs.unlinkSync("public/images/temp/" + id + ".png");
-          fs.unlinkSync("public/images/diff/" + id + ".png");
-        } catch (error) {
-          throw error;
-        }
+        // try {
+        //   fs.unlinkSync("public/images/temp/" + id + ".png");
+        //   fs.unlinkSync("public/images/diff/" + id + ".png");
+        // } catch (error) {
+        //   throw error;
+        // }
 
         res.json({
-            "imgScore": score
+            "imgScore": score,
+            "report": "http://54.95.10.72:3000/reports/" + id + ".html"
         });
     },
     async closeSubmit(req, res){
