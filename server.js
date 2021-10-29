@@ -10,6 +10,8 @@ const v2Controller = require(dir_path + "/app/controllers/v2Controller");
 require('dotenv').config();
 
 app.use(express.static('code'));
+app.use(express.static('public'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
 
