@@ -2,6 +2,7 @@
 
 [![jphacks2021_f2109 (1)](https://user-images.githubusercontent.com/42875682/139542571-222435c3-0222-4117-b7b8-f786f49f9bbb.png)](https://www.youtube.com/watch?v=PAyAUtquAqU)
 
+＊画像をクリックすると解説動画に飛びます。
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
@@ -14,6 +15,9 @@ https://github.com/jphacks/F_2109
 https://github.com/jphacks/F_2109_1_frontCoder_Client
 - 予備：
 https://github.com/jphacks/F_2109_2
+
+### 審査員の方へ
+　バックエンドはサーバーにデプロイしています。お手元で試す場合には、[フロントエンドのリポジトリ](https://github.com/jphacks/F_2109_1_frontCoder_Client)をgit cloneしてください。詳細はフロントエンドのリポジトリのREADMEを参照してください。
 
 ### 製品説明（具体的な製品の説明）
 ### 特長
