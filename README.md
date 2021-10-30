@@ -17,7 +17,7 @@ https://github.com/jphacks/F_2109_1_frontCoder_Client
 https://github.com/jphacks/F_2109_2
 
 ### 審査員の方へ
-　バックエンドはサーバーにデプロイしています。お手元で試す場合には、[フロントエンドのリポジトリ](https://github.com/jphacks/F_2109_1_frontCoder_Client)をgit cloneしてください。詳細はフロントエンドのリポジトリのREADMEを参照してください。
+　バックエンドはサーバーにデプロイしています。お手元で試す場合には、[フロントエンドのリポジトリ](https://github.com/jphacks/F_2109_1_frontCoder_Client)をgit cloneしてお試しください。詳細はフロントエンドのリポジトリのREADMEを参照してください。
 
 ### 製品説明（具体的な製品の説明）
 ### 特長
