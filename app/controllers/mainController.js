@@ -173,6 +173,7 @@ const mainController = {
         await screenshot.takeScreenshot(url, temp_image_path);
 
         //pixel check
+        // correct v0.2.0 dir構造を変更に伴い動かない
         const correctFilename = "public/images/correct/" + problem + ".png";
         const tempFilename = "public/images/temp/" + id + ".png";
         const diffFilename = "public/images/diff/" + id + ".png";
