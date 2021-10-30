@@ -7,22 +7,22 @@ const v2Controller = {
     await db.serialize(async function() {
 
         // db.run('CREATE TABLE IF NOT EXISTS problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
-        //db.run('CREATE TABLE problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
+        db.run('CREATE TABLE problem (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title text NOT NULL, description TEXT, image text NOT NULL, source_code TEXT, created_at TIMESTAMP, updated_at TIMESTAMP)');
       
         const stmt = db.prepare("INSERT INTO problem(title, description, image) VALUES(?, ?, ?)");
-        // stmt.run(['スタイリッシュ', 'スタイリッシュな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p1']);
-        // stmt.run(['シック', 'シックな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p2']);
-        // stmt.run(['ファッション', 'ファッショナブルな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p3']);
-        // stmt.run(['シンプル', 'シンプルな企業紹介サイトです。', 'p4']);
-        // stmt.run(['フラワー', '花をモチーフにした企業紹介サイトです。', 'p5']);
-        // stmt.run(['IT', 'IT業界向けの企業紹介サイトです。', 'p6']);
-        // stmt.run(['web', 'web業界向けの企業紹介サイトです。', 'p7']);
-        // stmt.run(['キッチン', 'キッチンをモチーフにした施工業者向け企業紹介サイトです。', 'p8']);
-        // stmt.run(['ナチュラル', '自然をモチーフにした企業紹介サイトです。', 'p9']);
-        // stmt.run(['コーヒー', 'カフェ向けの企業紹介サイトです。', 'p10']);
-        stmt.run(['チュートリアル１', '基本的なCSSのチュートリアル。', 'p11']);
-        stmt.run(['チュートリアル２', 'Flexboxの練習用チュートリアル。', 'p12']);
-        stmt.run(['チュートリアル３', 'Grid Layoutの練習用チュートリアル。', 'p13']);
+        stmt.run(['スタイリッシュ', 'スタイリッシュな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p1']);
+        stmt.run(['シック', 'シックな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p2']);
+        stmt.run(['ファッション', 'ファッショナブルな美容室・アパレル・カフェ・ショップ向けの会社紹介サイトです。', 'p3']);
+        stmt.run(['シンプル', 'よくあるタイプのものでシンプルな企業紹介サイトです。', 'p4']);
+        stmt.run(['フラワー', 'WEBサイト全体で花をモチーフにした企業紹介サイトです。', 'p5']);
+        stmt.run(['IT', 'IT業界向けの企業紹介サイトです。日本の情報機関にありそうなホームページです。', 'p6']);
+        stmt.run(['web', 'web業界向けの企業紹介サイトです。必要な情報を簡単に書くことができます。', 'p7']);
+        stmt.run(['キッチン', 'キッチンをモチーフにした施工業者向け企業紹介サイトです。', 'p8']);
+        stmt.run(['ナチュラル', '自然をモチーフにした企業紹介サイトです。', 'p9']);
+        stmt.run(['コーヒー', 'カフェ向けの企業の紹介ページです。写真の光彩が鮮やかに加工されています。', 'p10']);
+        stmt.run(['チュートリアル１', '基本的なCSSのチュートリアル。最も初級者向けの問題です。', 'p11']);
+        stmt.run(['チュートリアル２', 'Flexboxの練習用チュートリアル。要素の並べ方の練習に最適です。', 'p12']);
+        stmt.run(['チュートリアル３', 'Grid Layoutの練習用チュートリアル。四本のアンテナを並べましょう。', 'p13']);
         stmt.finalize();
         
         await db.all("SELECT * FROM problem",async function(err, row) {
