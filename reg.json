@@ -1,1 +1,1 @@
-{"failedItems":["p2.png"],"newItems":[],"deletedItems":[],"passedItems":[],"expectedItems":["p2.png"],"actualItems":["p2.png"],"diffItems":["p2.png"],"actualDir":"./public\\images\\correct\\p2","expectedDir":"./public\\images\\temp\\3","diffDir":"./public\\images\\diff\\3"}
+{"failedItems":["p4.png"],"newItems":[],"deletedItems":[],"passedItems":[],"expectedItems":["p4.png"],"actualItems":["p4.png"],"diffItems":["p4.png"],"actualDir":"./public\\images\\correct\\p4","expectedDir":"./public\\images\\temp\\5","diffDir":"./public\\images\\diff\\5"}
