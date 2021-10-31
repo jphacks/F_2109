@@ -51,8 +51,8 @@ https://github.com/jphacks/F_2109_2
 * Cypress
 * CodeSandbox
 * Reg-Cli
-* Firebase Firestore
-* Firebase auth
+* Cloud Firestore
+* Firebase Authentication
 
 
 ### 独自技術
