@@ -10,7 +10,7 @@ exports.checkPixel = async function (correct_filename, temp_filename, diff_filen
         diffFilename: diff_filename,
     }).then(result => {
         console.log(result);
-        all_pixel = origin_width * origin_height;
+        all_pixel = result.height * result.width;
         score = (all_pixel - result.diffCount) / all_pixel;
 
     });
